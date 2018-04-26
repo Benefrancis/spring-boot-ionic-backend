@@ -33,7 +33,7 @@ public class ClienteService {
 	public Cliente update(Cliente obj) {
 
 		Cliente newObj = find(obj.getId()); // Pego o obj do banco de dados
-		updateData(newObj, obj);// Atualizo as informações
+		updateData(newObj, obj);// Atualizo os dados
 		return repo.save(newObj);// Persisto o objeto que veio do BD.
 	}
 
