@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class PagamentoComBoleto extends Pagamento {
 
 	private static final long serialVersionUID = 1L;
-	
-	@JsonFormat(pattern="dd/mm/yyyy HH:mm")
+
+	@JsonFormat(pattern = "dd/mm/yyyy HH:mm")
 	private Date dataVencimento;
-	
-	@JsonFormat(pattern="dd/mm/yyyy HH:mm")
+
+	@JsonFormat(pattern = "dd/mm/yyyy HH:mm")
 	private Date dataPagamento;
 
 	public PagamentoComBoleto() {
