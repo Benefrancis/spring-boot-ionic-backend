@@ -52,7 +52,6 @@ public class ClienteService {
 	}
 
 	public Cliente update(Cliente obj) {
-
 		Cliente newObj = find(obj.getId()); // Pego o obj do banco de dados
 		updateData(newObj, obj);// Atualizo os dados
 		return repo.save(newObj);// Persisto o objeto que veio do BD.
@@ -63,9 +62,8 @@ public class ClienteService {
 		try {
 			repo.delete(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas");
+			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionadas");
 		}
-
 	}
 
 	public List<Cliente> findAll() {
