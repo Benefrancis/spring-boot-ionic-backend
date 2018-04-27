@@ -32,7 +32,6 @@ public abstract class Pagamento implements Serializable {
 
 	public Pagamento() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
