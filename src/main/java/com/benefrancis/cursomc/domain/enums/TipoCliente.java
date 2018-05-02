@@ -2,11 +2,11 @@ package com.benefrancis.cursomc.domain.enums;
 
 public enum TipoCliente {
 	PESSOAFISICA(1, "Pessoa Física"), PESSOAJURIDICA(2, "Pessoa Jurídica");
+
 	private int cod;
 	private String descricao;
 
-	TipoCliente(int cod, String descricao) {
-
+	private TipoCliente(int cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
@@ -16,17 +16,18 @@ public enum TipoCliente {
 	}
 
 	public String getDescricao() {
-		return descricao;	
+		return descricao;
 	}
 
 	public static TipoCliente toEnum(Integer cod) {
+
 		if (cod == null) {
 			return null;
 		}
 
-		for (TipoCliente tc : TipoCliente.values()) {
-			if (cod.equals(tc.getCod())) {
-				return tc;
+		for (TipoCliente x : TipoCliente.values()) {
+			if (cod.equals(x.getCod())) {
+				return x;
 			}
 		}
 

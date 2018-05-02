@@ -82,8 +82,7 @@ public class ClienteService {
 
 	public Cliente fromDTO(ClienteNewDTO objDto) {
 
-		Cliente c = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(),
-				TipoCliente.toEnum(objDto.getTipo()));
+		Cliente c = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(),TipoCliente.toEnum(objDto.getTipo()));
 
 		Cidade cid = cidadeRepository.findOne(objDto.getCidadeId());
 

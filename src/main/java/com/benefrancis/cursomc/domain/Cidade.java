@@ -9,12 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-
-
-@Entity	
+@Entity
 public class Cidade implements Serializable {
-
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -25,8 +23,6 @@ public class Cidade implements Serializable {
 	private Estado estado;
 
 	public Cidade() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Cidade(Integer id, String nome, Estado estado) {

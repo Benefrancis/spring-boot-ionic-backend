@@ -21,25 +21,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-
 	private String nome;
-	
-	@Column(unique=true)
-	private String email;
-	
-	
-	private String cpfOuCnpj;
 
+	@Column(unique = true)
+	private String email;
+	private String cpfOuCnpj;
 	private Integer tipo;
 
-	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection
@@ -51,7 +45,6 @@ public class Cliente implements Serializable {
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Cliente() {
-		super();
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -127,14 +120,6 @@ public class Cliente implements Serializable {
 		this.pedidos = pedidos;
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -159,5 +144,4 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-
 }
