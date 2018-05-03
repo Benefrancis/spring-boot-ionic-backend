@@ -3,6 +3,9 @@ package com.benefrancis.cursomc.services;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.benefrancis.cursomc.domain.ItemPedido;
@@ -36,9 +39,10 @@ public class PedidoService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
-	
-	
+
+	@Autowired
+	private EmailService emailService;
+
 	public Pedido find(Integer id) {
 		Pedido obj = repo.findOne(id);
 		if (obj == null) {
@@ -66,8 +70,12 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.save(obj.getItens());
-
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
+	}
 }
