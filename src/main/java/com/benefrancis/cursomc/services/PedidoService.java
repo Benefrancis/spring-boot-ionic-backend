@@ -40,6 +40,7 @@ public class PedidoService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private EmailService emailService;
 
