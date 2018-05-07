@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.benefrancis.cursomc.domain.Categoria;
@@ -60,6 +61,9 @@ public class DBService {
 	@Autowired
 	ItemPedidoRepository itemPedidoRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder pe;
+
 	public void instantiateTestDatabase() throws ParseException {
 
 		Categoria cat1 = new Categoria(null, "Informática");
@@ -69,7 +73,7 @@ public class DBService {
 		Categoria cat5 = new Categoria(null, "Jardinagem");
 		Categoria cat6 = new Categoria(null, "Decoração");
 		Categoria cat7 = new Categoria(null, "Perfumaria");
-		//Categoria cat8 = new Categoria(null, "Teste");
+		// Categoria cat8 = new Categoria(null, "Teste");
 
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -122,7 +126,8 @@ public class DBService {
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
 
-		Cliente cli1 = new Cliente(null, "Benefrancis", "benefrancis@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Benefrancis", "benefrancis@gmail.com", "36378912377",
+				TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
