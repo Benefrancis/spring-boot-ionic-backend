@@ -68,4 +68,16 @@ public class UserSS implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
+	/**
+	 * Testa se um determinado usuário tem um determinado perfil
+	 * 
+	 * @param perfil
+	 * @return
+	 */
+	public boolean hasRole(Perfil perfil) {
+
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+
+	}
 }

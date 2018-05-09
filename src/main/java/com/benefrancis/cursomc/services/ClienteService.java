@@ -14,12 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.benefrancis.cursomc.domain.Cidade;
 import com.benefrancis.cursomc.domain.Cliente;
 import com.benefrancis.cursomc.domain.Endereco;
+import com.benefrancis.cursomc.domain.enums.Perfil;
 import com.benefrancis.cursomc.domain.enums.TipoCliente;
 import com.benefrancis.cursomc.dto.ClienteDTO;
 import com.benefrancis.cursomc.dto.ClienteNewDTO;
 import com.benefrancis.cursomc.repositories.CidadeRepository;
 import com.benefrancis.cursomc.repositories.ClienteRepository;
 import com.benefrancis.cursomc.repositories.EnderecoRepository;
+import com.benefrancis.cursomc.security.UserSS;
+import com.benefrancis.cursomc.services.exceptions.AuthorizationException;
 import com.benefrancis.cursomc.services.exceptions.DataIntegrityException;
 import com.benefrancis.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -38,7 +41,20 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
+	
+	/**
+	 * Um cliente deve estar logado e só poderá consultar a ele mesmo, salvo se for Admin
+	 * @param id
+	 * @return
+	 */
 	public Cliente find(Integer id) {
+
+		UserSS user = UserService.authenticated();
+		
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
 		Cliente obj = repo.findOne(id);
 		if (obj == null) {
 			throw new ObjectNotFoundException(
