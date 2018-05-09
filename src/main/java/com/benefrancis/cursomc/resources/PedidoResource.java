@@ -37,11 +37,11 @@ public class PedidoResource {
 		return ResponseEntity.created(uri).build();
 	}
 
-	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Page<Pedido>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "instante") String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+			@RequestParam(value = "direction", defaultValue = "DESC") String direction) {
 
 		Page<Pedido> list = service.findPage(page, linesPerPage, orderBy, direction);
 

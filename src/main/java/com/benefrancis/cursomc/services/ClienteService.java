@@ -41,16 +41,17 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
-	
 	/**
-	 * Um cliente deve estar logado e só poderá consultar a ele mesmo, salvo se for Admin
+	 * Um cliente deve estar logado e só poderá consultar a ele mesmo, salvo se for
+	 * Admin
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public Cliente find(Integer id) {
+	public Cliente findOne(Integer id) {
 
 		UserSS user = UserService.authenticated();
-		
+
 		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso negado");
 		}
@@ -72,13 +73,13 @@ public class ClienteService {
 	}
 
 	public Cliente update(Cliente obj) {
-		Cliente newObj = find(obj.getId()); // Pego o obj do banco de dados
+		Cliente newObj = findOne(obj.getId()); // Pego o obj do banco de dados
 		updateData(newObj, obj);// Atualizo os dados
 		return repo.save(newObj);// Persisto o objeto que veio do BD.
 	}
 
 	public void delete(Integer id) {
-		find(id);
+		findOne(id);
 		try {
 			repo.delete(id);
 		} catch (DataIntegrityViolationException e) {
@@ -138,4 +139,5 @@ public class ClienteService {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
+
 }
