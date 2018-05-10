@@ -1,5 +1,6 @@
 package com.benefrancis.cursomc.services;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.benefrancis.cursomc.domain.Cidade;
 import com.benefrancis.cursomc.domain.Cliente;
@@ -41,6 +43,11 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
+	@Autowired
+	private S3Service s3Service;
+	
+	
+	
 	/**
 	 * Um cliente deve estar logado e só poderá consultar a ele mesmo, salvo se for
 	 * Admin
@@ -140,4 +147,8 @@ public class ClienteService {
 		newObj.setEmail(obj.getEmail());
 	}
 
+	
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		return s3Service.uploadFile(multipartFile);
+	}
 }
