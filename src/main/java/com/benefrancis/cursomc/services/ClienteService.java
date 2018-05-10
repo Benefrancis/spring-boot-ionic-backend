@@ -45,9 +45,7 @@ public class ClienteService {
 
 	@Autowired
 	private S3Service s3Service;
-	
-	
-	
+
 	/**
 	 * Um cliente deve estar logado e só poderá consultar a ele mesmo, salvo se for
 	 * Admin
@@ -147,8 +145,15 @@ public class ClienteService {
 		newObj.setEmail(obj.getEmail());
 	}
 
-	
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
-		return s3Service.uploadFile(multipartFile);
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		URI uri = s3Service.uploadFile(multipartFile);
+		Cliente cli = repo.findOne(user.getId());
+		cli.setImageUrl(uri.toString());
+		repo.save(cli);
+		return uri;
 	}
 }
